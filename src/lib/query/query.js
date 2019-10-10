@@ -1,6 +1,7 @@
 /*ranking of keywords which are used with specific language*/
-
-select
+export const query1 =
+    `
+    select
     RecentCol.Tag,
     RecentCnt,
     row_number() over (order by recentCol.recentCnt desc) as RecentRank,
@@ -62,4 +63,4 @@ INNER JOIN
 on RecentCol.Tag = TotalCol.Tag
 
 order by recentCol.recentCnt desc
-;
+;`;
