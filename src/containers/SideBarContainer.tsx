@@ -1,14 +1,14 @@
 import React, {ChangeEvent, useState} from 'react';
 import {History} from "history";
-import {Button} from 'reactstrap';
 import {useInfoDispatch} from "../contexts/searchInfoContext";
 import SearchForm from "../common/components/SearchForm";
+import * as rx from '../lib/rx/rx';
 
 interface Props {
     history : History
 }
 
-const SearchInfoContainer = ({history} : Props) => {
+const SidBarContainer = ({history} : Props) => {
     const [keyword, setKeyword] = useState('');
     const [period, setPeriod] = useState(3);
     const infoDispatch = useInfoDispatch();
@@ -22,24 +22,22 @@ const SearchInfoContainer = ({history} : Props) => {
     };
 
     const handleClickButton = () => {
-        infoDispatch({
-            keyword,
-            period,
-        });
+        const info = { keyword, period };
 
-        history.push(`/search`);
+        infoDispatch(info);
+
+        rx.infoSbj.next(info);
     };
 
-    return (
+    return(
         <div>
             <SearchForm
                 handleChangeInput={handleChangeInput}
                 handleChangeOption={handleChangeOption}
                 handleClickButton={handleClickButton}
-                keyword={keyword}
-            />
+                keyword={keyword}/>
         </div>
     )
 };
 
-export default SearchInfoContainer;
+export default SidBarContainer;

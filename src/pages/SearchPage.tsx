@@ -1,10 +1,13 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
+import GraphContainer from '../containers/GraphContainer';
+import SideBarContainer from '../containers/SideBarContainer';
 
-const SearchPage = ({history} : RouteComponentProps) => {
+const SearchPage = ({history, location} : RouteComponentProps) => {
     return(
         <div>
-            searchPage
+            <GraphContainer history={history}/>
+            <SideBarContainer history={history} />
         </div>
     )
 };
