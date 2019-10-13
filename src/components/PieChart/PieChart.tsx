@@ -3,16 +3,19 @@ import CanvasJSReact from '../../canvasjs-2.3.2/canvasjs.react';
 import {toPresentableData} from "../../common/utils";
 import {dataObj} from "../../common/type";
 import DataTable from '../DataTable';
+import {Spinner} from "reactstrap";
+import './PieChart.scss';
 
 interface Props {
     data : dataObj | null;
+    loading : boolean;
 }
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const CanvasJS = CanvasJSReact.CanvasJS;
 
 
-const PieChart = ({ data } : Props) => {
+const PieChart = ({ data, loading } : Props) => {
     useEffect(() => {
         CanvasJS.addColorSet("custom",
             [
@@ -68,6 +71,16 @@ const PieChart = ({ data } : Props) => {
             dataPoints: risingData
         }]
     };
+
+    if(loading) {
+        return (
+            <div className={"spinner-container"}>
+                <div className={"spinner"}>
+                    <Spinner />
+                </div>
+            </div>
+        )
+    }
 
     return(
         <div>
