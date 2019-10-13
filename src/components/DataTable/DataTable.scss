@@ -1,0 +1,15 @@
+table {
+  height: 400px;
+  display: block;
+  overflow-y: auto;
+  width : 100%;
+  thead {
+    background-color: lightgray;
+    th {
+      width : 20%;
+    }
+  }
+  tbody {
+    width: 100%;
+  }
+}
