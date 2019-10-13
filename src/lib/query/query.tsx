@@ -12,9 +12,8 @@ export const query1 = (language : string, period : number) : string => {
         select b.TagName as Tag, count(a.PostId) as recentCnt
         from
             (select PostId
-            from Tags, PostTags, Posts
+            from Tags, PostTags
             where Tags.Id = TagId 
-                and Posts.Id = PostId
                 and TagName = '${language}'
                 ) as a
     
@@ -23,8 +22,8 @@ export const query1 = (language : string, period : number) : string => {
             (select PostId, Tags.TagName
             from Tags, PostTags, Posts
             where Tags.Id = TagId
-                and Posts.Id = PostId
                 and TagName not like '%${language}%'
+                and PostId = Posts.Id
                 and CreationDate > DATEADD(month , -${period}, GETDATE())
                 and CreationDate < GETDATE()
                 ) as b
@@ -39,9 +38,8 @@ export const query1 = (language : string, period : number) : string => {
         select d.TagName as Tag, count(c.PostId) as TotalCnt
         from
             (select PostId
-            from Tags, PostTags, Posts
+            from Tags, PostTags
             where Tags.Id = TagId 
-                and Posts.Id = PostId
                 and TagName = '${language}'
                 ) as c
         
@@ -50,7 +48,7 @@ export const query1 = (language : string, period : number) : string => {
             (select PostId, Tags.TagName
             from Tags, PostTags, Posts
             where Tags.Id = TagId
-                and Posts.Id = PostId
+                and PostId = Posts.Id
                 and TagName not like '%${language}%'
                 and CreationDate > DATEADD(year , -4, GETDATE())
                 and CreationDate < DATEADD(year , -1, GETDATE())
