@@ -4,3 +4,10 @@ export type basicType = {
     b : number;
     c : number;
 }
+
+export type dataObj = {
+    columns : Array<any>;
+messagePosition : number;
+rows : Array<any>;
+truncated : boolean;
+};
