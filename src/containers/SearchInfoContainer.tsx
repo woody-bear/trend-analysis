@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from 'react';
 import {History} from "history";
-import {Button} from 'reactstrap';
 import {useInfoDispatch} from "../contexts/searchInfoContext";
 import SearchForm from "../common/components/SearchForm";
+
 
 interface Props {
     history : History

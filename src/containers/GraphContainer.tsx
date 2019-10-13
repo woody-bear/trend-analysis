@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {History} from "history";
 import {Info} from "../contexts/searchInfoContext";
 import * as rx from '../lib/rx/rx';
-import {debounceTime, delay, distinctUntilChanged, map, retryWhen, switchMap, takeWhile} from "rxjs/operators";
+import {debounceTime, delay, distinctUntilChanged, map, retry, retryWhen, switchMap, takeWhile} from "rxjs/operators";
 import {ajax} from "rxjs/ajax";
 import {SEDE_URL} from "../common/constants";
 import * as sqlQuery from '../lib/query/query';
@@ -40,6 +40,7 @@ const GraphContainer = ({ history } : Props) => {
                     errors
                         .pipe(delay(1000))
                         .pipe(takeWhile(error => error === 'waiting'))))
+                .pipe(retry(3))
         }
         else return response.resultSets;
     };
@@ -47,6 +48,7 @@ const GraphContainer = ({ history } : Props) => {
     const queryPost = (info : Info) => {
         const fd = new FormData();
         fd.append('sql', sqlQuery.query1(info.keyword, info.period));
+        // fd.append('g_recaptcha_response', info.g_recaptcha_response);
 
         return ajax.post(`${SEDE_URL}/save/1`, fd)
             .pipe(map(r => r.response))
@@ -66,10 +68,7 @@ const GraphContainer = ({ history } : Props) => {
             .subscribe(onNext)
     }, []);
 
-    if(loading) {
-        return <Spinner />
-    }
-    return <PieChart data={data} />
+    return <PieChart data={data} loading={loading}/>
 };
 
 export default GraphContainer;
