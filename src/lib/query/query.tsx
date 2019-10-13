@@ -15,7 +15,7 @@ export const query1 = (language : string, period : number) : string => {
             from Tags, PostTags, Posts
             where Tags.Id = TagId 
                 and Posts.Id = PostId
-                and TagName = \'${language}\'
+                and TagName = '${language}'
                 ) as a
     
         INNER JOIN
@@ -24,7 +24,7 @@ export const query1 = (language : string, period : number) : string => {
             from Tags, PostTags, Posts
             where Tags.Id = TagId
                 and Posts.Id = PostId
-                and TagName not like \'%${language}%\'
+                and TagName not like '%${language}%'
                 and CreationDate > DATEADD(month , -${period}, GETDATE())
                 and CreationDate < GETDATE()
                 ) as b
@@ -42,7 +42,7 @@ export const query1 = (language : string, period : number) : string => {
             from Tags, PostTags, Posts
             where Tags.Id = TagId 
                 and Posts.Id = PostId
-                and TagName = \'${language}\'
+                and TagName = '${language}'
                 ) as c
         
             INNER JOIN
@@ -51,7 +51,7 @@ export const query1 = (language : string, period : number) : string => {
             from Tags, PostTags, Posts
             where Tags.Id = TagId
                 and Posts.Id = PostId
-                and TagName not like \'%${language}%\'
+                and TagName not like '%${language}%'
                 and CreationDate > DATEADD(year , -4, GETDATE())
                 and CreationDate < DATEADD(year , -1, GETDATE())
                 ) as d
