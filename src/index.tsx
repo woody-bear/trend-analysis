@@ -4,11 +4,16 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css'
 import {InfoContextProvider} from "./contexts/searchInfoContext";
 import {LoadingContextProvider} from "./contexts/LoadingContext";
+import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 
 ReactDOM.render(
-    <InfoContextProvider>
-        <LoadingContextProvider>
-            <App />
-        </LoadingContextProvider>
-    </InfoContextProvider>,
+    <GoogleReCaptchaProvider
+        reCaptchaKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+    >
+        <InfoContextProvider>
+            <LoadingContextProvider>
+                <App />
+            </LoadingContextProvider>
+        </InfoContextProvider>
+    </GoogleReCaptchaProvider>,
     document.getElementById('root'));

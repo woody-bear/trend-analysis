@@ -1,9 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useState, useEffect} from 'react';
 import {History} from "history";
 import {useInfoDispatch} from "../contexts/searchInfoContext";
 import SearchForm from "../common/components/SearchForm";
 import * as rx from '../lib/rx/rx';
 import {useLoadingDispatch} from "../contexts/LoadingContext";
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 interface Props {
     history : History
@@ -12,9 +13,21 @@ interface Props {
 const SidBarContainer = ({history} : Props) => {
     const [keyword, setKeyword] = useState('');
     const [period, setPeriod] = useState(3);
+    const [token, setToken] = useState("");
 
     const infoDispatch = useInfoDispatch();
     const loadingDispatch = useLoadingDispatch();
+
+    const { executeRecaptcha } = useGoogleReCaptcha();
+
+    useEffect(() => {
+        initialize();
+    }, [executeRecaptcha]);
+
+    const initialize = async () => {
+        if(!executeRecaptcha) return;
+        setToken(await executeRecaptcha("search"));
+    };
 
     const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
@@ -25,7 +38,11 @@ const SidBarContainer = ({history} : Props) => {
     };
 
     const handleClickButton = () => {
-        const info = { keyword, period };
+        const info = {
+            keyword,
+            period,
+            g_recaptcha_response: token,
+        };
 
         infoDispatch(info);
 

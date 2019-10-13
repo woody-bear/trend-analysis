@@ -15,6 +15,7 @@
     "query-string": "^6.8.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-google-recaptcha-v3": "^1.4.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "reactstrap": "^8.0.1",
