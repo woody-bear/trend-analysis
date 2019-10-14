@@ -64,3 +64,23 @@ export const toPresentableData = (rows : Array<any>, type : dataType) => {
         }
     }
 };
+
+export const toDetailData = (rows : Array<any>, type : dataType) => {
+    let typeIdx = 0;
+
+    switch (type) {
+        case "overall":
+            typeIdx = 3;
+            break;
+        case "recent":
+            typeIdx = 1;
+            break;
+    }
+
+    return rows.map(row => {
+        return {
+            v : row[typeIdx],
+            label : row[0]
+        }
+    })
+};
