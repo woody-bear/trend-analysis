@@ -6,7 +6,6 @@ import {debounceTime, delay, distinctUntilChanged, map, retry, retryWhen, switch
 import {ajax} from "rxjs/ajax";
 import {SEDE_URL} from "../common/constants";
 import * as sqlQuery from '../lib/query/query';
-import {Spinner} from "reactstrap";
 import {useLoadingDispatch, useLoadingState} from "../contexts/LoadingContext";
 import PieChart from "../components/PieChart";
 
@@ -29,6 +28,11 @@ const GraphContainer = ({ history } : Props) => {
     const isSameInfo = (x : Info, y : Info) => x.keyword === y.keyword && x.period === y.period
 
     const tryGetResult = (response : any) => {
+        if(response.captcha) {
+            alert('recaptcha 인증이 필요합니다. 아래 사이트에서 인증을 진행해주세요.\n\n ' +
+                'https://data.stackexchange.com/stackoverflow/query/new');
+        }
+
         if(response.running) {
             return ajax.get(`${SEDE_URL}/job/${response.job_id}`)
                 .pipe(map(r => r.response))
