@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CanvasJSReact from '../../canvasjs-2.3.2/canvasjs.react';
-import {toPresentableData} from "../../common/utils";
+import {toPresentableData, toDetailData} from "../../common/utils";
 import {dataObj} from "../../common/type";
 import DataTable from '../DataTable';
-import {Spinner} from "reactstrap";
+import {Spinner, Button} from "reactstrap";
 import './PieChart.scss';
+import BubbleChart from "../BubbleChart";
 
 interface Props {
     data : dataObj | null;
@@ -16,6 +17,9 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 
 
 const PieChart = ({ data, loading } : Props) => {
+    const [viewMode, setViewMode] = useState(0);
+    const [detailData, setDetailData] = useState<Array<any>>([]);
+
     useEffect(() => {
         CanvasJS.addColorSet("custom",
             [
@@ -72,6 +76,11 @@ const PieChart = ({ data, loading } : Props) => {
         }]
     };
 
+    const handleClickDetail = (e : any) => {
+        setDetailData(toDetailData(data.rows, e.target.name));
+        setViewMode(1);
+    };
+
     if(loading) {
         return (
             <div className={"spinner-container"}>
@@ -82,25 +91,39 @@ const PieChart = ({ data, loading } : Props) => {
         )
     }
 
-    return(
-        <div>
-            <div style={{'width' : '50%', 'display' : 'inline-block'}}>
-                <CanvasJSChart options={overall}
-                />
+    if(viewMode === 0) {
+        return(
+            <div>
+                <div style={{'width' : '50%', 'display' : 'inline-block'}}>
+                    <CanvasJSChart options={overall}
+                    />
+                    <Button name={"overall"} onClick={(e) => handleClickDetail(e)}>show Detail</Button>
+                </div>
+                <div style={{'width' : '50%', 'display' : 'inline-block'}}>
+                    <CanvasJSChart options={recent}
+                    />
+                    <Button name={"recent"} onClick={(e) => handleClickDetail(e)}>show Detail</Button>
+                </div>
+                <div style={{'width' : '50%', 'display' : 'inline-block'}}>
+                    <CanvasJSChart options={rising}
+                    />
+                </div>
+                <div style={{'width' : '50%', 'display' : 'inline-block'}}>
+                    <DataTable data={data} />
+                </div>
             </div>
-            <div style={{'width' : '50%', 'display' : 'inline-block'}}>
-                <CanvasJSChart options={recent}
-                />
-            </div>
-            <div style={{'width' : '50%', 'display' : 'inline-block'}}>
-                <CanvasJSChart options={rising}
-                />
-            </div>
-            <div style={{'width' : '50%', 'display' : 'inline-block'}}>
-                <DataTable data={data} />
-            </div>
-        </div>
-    )
+        )
+    }
+    else {
+        return(
+            <BubbleChart
+                data={detailData}
+                width={800}
+                height={600}
+                useLabels={true}
+            />
+        )
+    }
 };
 
 export default PieChart;
