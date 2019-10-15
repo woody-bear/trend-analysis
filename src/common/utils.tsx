@@ -77,10 +77,13 @@ export const toDetailData = (rows : Array<any>, type : dataType) => {
             break;
     }
 
+    let allCount = 0;
+    rows.forEach((row => allCount += row[typeIdx]));
+
     return rows.map(row => {
         return {
-            v : row[typeIdx],
-            label : row[0]
+            v : (row[typeIdx] / allCount) * 500,
+            label : `${row[0]}`
         }
     })
 };

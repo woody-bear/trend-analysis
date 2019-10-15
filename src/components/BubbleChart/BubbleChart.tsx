@@ -1,13 +1,14 @@
 import React from 'react';
 import {Spinner} from "reactstrap";
+import './BubbleChart.scss'
 
 const _ = require('underscore');
 const d3 = require('d3');
 
 interface Props {
     data : Array<any>;
-    width : number;
-    height : number;
+    width : string;
+    height : string;
     useLabels : boolean;
 }
 
@@ -80,7 +81,7 @@ class BubbleChart extends React.Component<Props, State> {
     radiusScale = (value : any) => {
         const fx = d3
             .scaleSqrt()
-            .range([1, 50])
+            .range([1, 300])
             .domain([this.state.minValue, this.state.maxValue]);
 
         return fx(value);
@@ -132,8 +133,7 @@ class BubbleChart extends React.Component<Props, State> {
             return (
                 <g
                     key={index}
-                    transform={`translate(${props.width / 2 +
-                    1.2*item.x}, ${props.height / 2 + 1.2*item.y})`}
+                    transform={`translate(${window.innerWidth / 2 + item.x},${window.innerHeight / 2 + item.y})`}
                 >
                     <circle
                         r={this.radiusScale(item.v)}
@@ -160,9 +160,9 @@ class BubbleChart extends React.Component<Props, State> {
     render() {
         if (this.state.data.length) {
             return (
-                <svg width={this.props.width} height={this.props.height}>
-                    {this.renderBubbles(this.state.data)}
-                </svg>
+                    <svg width={'100vw'} height={'100vh'}>
+                            {this.renderBubbles(this.state.data)}
+                    </svg>
             );
         }
 
