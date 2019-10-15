@@ -50,12 +50,17 @@ const SidBarContainer = ({history} : Props) => {
         rx.infoSbj.next(info);
     };
 
+    const handleKeyPress = (e : any) => {
+        if(e.key === 'Enter') handleClickButton();
+    };
+
     return(
         <div>
             <SearchForm
                 handleChangeInput={handleChangeInput}
                 handleChangeOption={handleChangeOption}
                 handleClickButton={handleClickButton}
+                handleKeyPress={handleKeyPress}
                 keyword={keyword}/>
         </div>
     )

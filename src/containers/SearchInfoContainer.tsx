@@ -30,12 +30,17 @@ const SearchInfoContainer = ({history} : Props) => {
         history.push(`/search`);
     };
 
+    const handleKeyPress = (e : any) => {
+        if(e.keyCode === 13) handleClickButton();
+    };
+
     return (
         <div>
             <SearchForm
                 handleChangeInput={handleChangeInput}
                 handleChangeOption={handleChangeOption}
                 handleClickButton={handleClickButton}
+                handleKeyPress={handleKeyPress}
                 keyword={keyword}
             />
         </div>

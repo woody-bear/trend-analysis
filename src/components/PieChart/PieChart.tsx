@@ -118,8 +118,8 @@ const PieChart = ({ data, loading } : Props) => {
         return(
             <BubbleChart
                 data={detailData}
-                width={800}
-                height={600}
+                height={'100vh'}
+                width={'100vw'}
                 useLabels={true}
             />
         )
