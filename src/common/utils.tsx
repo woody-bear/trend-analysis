@@ -15,10 +15,10 @@ export const toPresentableData = (rows : Array<any>, type : dataType) => {
             break;
     }
 
-    if(typeIdx == 2) {
+    if(typeIdx === 2) {
         const tagArr = rows.map(row => {
             return {name : row[0], risingRate : row[4] / row[2]}
-        }).sort((a,b) => b.risingRate - a. risingRate);
+        }).sort((a,b) => b.risingRate - a.risingRate);
 
         if(tagArr.length > 10) {
             return tagArr.slice(0,10).map(tag => {

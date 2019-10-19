@@ -20,14 +20,15 @@ const SidBarContainer = ({history} : Props) => {
 
     const { executeRecaptcha } = useGoogleReCaptcha();
 
+
     useEffect(() => {
+        const initialize = async () => {
+            if(!executeRecaptcha) return;
+            setToken(await executeRecaptcha("search"));
+        };
+
         initialize();
     }, [executeRecaptcha]);
-
-    const initialize = async () => {
-        if(!executeRecaptcha) return;
-        setToken(await executeRecaptcha("search"));
-    };
 
     const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);

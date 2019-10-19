@@ -49,28 +49,28 @@ const GraphContainer = ({ history } : Props) => {
         else return response.resultSets;
     };
 
-    const queryPost = (info : Info) => {
-        const fd = new FormData();
-        fd.append('sql', sqlQuery.query1(info.keyword, info.period));
-        // fd.append('g_recaptcha_response', info.g_recaptcha_response);
-
-        return ajax.post(`${SEDE_URL}/save/1`, fd)
-            .pipe(map(r => r.response))
-            .pipe(switchMap(tryGetResult))
-    };
-
-    const onNext = (value : any) => {
-        setData(value);
-        loadingDispatch({type : "FINISH"});
-    };
-
     useEffect(() => {
+        const queryPost = (info : Info) => {
+            const fd = new FormData();
+            fd.append('sql', sqlQuery.query1(info.keyword, info.period));
+            // fd.append('g_recaptcha_response', info.g_recaptcha_response);
+
+            return ajax.post(`${SEDE_URL}/save/1`, fd)
+                .pipe(map(r => r.response))
+                .pipe(switchMap(tryGetResult))
+        };
+
+        const onNext = (value : any) => {
+            setData(value);
+            loadingDispatch({type : "FINISH"});
+        };
+
         rx.infoSbj
             .pipe(debounceTime(200))
             .pipe(distinctUntilChanged(isSameInfo))
             .pipe(switchMap(queryPost))
             .subscribe(onNext)
-    }, []);
+    }, [loadingDispatch]);
 
     return <PieChart data={data} loading={loading}/>
 };
