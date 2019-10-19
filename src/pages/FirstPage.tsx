@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchInfoContainer from '../containers/SearchInfoContainer';
+import SearchInfoContainer from '../containers/SearchInfo/SearchInfoContainer';
 import {RouteComponentProps} from "react-router";
 
 
 const FirstPage = ({ history } : RouteComponentProps) => {
     return(
-        <div>
+        <div style={{'position' : 'relative', 'height' : '100vh', 'width' : '100vw'}}>
             <SearchInfoContainer history={history} />
         </div>
     )
