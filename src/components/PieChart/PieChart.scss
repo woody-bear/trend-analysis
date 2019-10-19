@@ -1,11 +1,27 @@
-.spinner-container {
-  height: 100vh;
-  width: 100vw;
-  position : relative;
-  .spinner {
-    position : absolute;
-    left: 50%;
-    top : 50%;
-    transform: translate(-50%, -50%);
+.spinner-wide-container {
+  position : absolute;
+  top : 3rem;
+  .spinner-container {
+    height: 100vh;
+    width: 100vw;
+    position : relative;
+    .spinner {
+      position : absolute;
+      left: 50%;
+      top : 50%;
+      transform: translate(-50%, -50%);
+    }
   }
+}
+
+.piechart-container {
+  position : absolute;
+  top : 6rem;
+  width : 100%;
+}
+
+.bubblechart-container {
+  position : absolute;
+  top : 6rem;
+  width : 100%;
 }

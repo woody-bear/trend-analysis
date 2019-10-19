@@ -92,9 +92,11 @@ const PieChart = ({ data, loading } : Props) => {
 
     if(loading) {
         return (
-            <div className={"spinner-container"}>
-                <div className={"spinner"}>
-                    <Spinner />
+            <div className={"spinner-wide-container"}>
+                <div className={"spinner-container"}>
+                    <div className={"spinner"}>
+                        <Spinner />
+                    </div>
                 </div>
             </div>
         )
@@ -102,7 +104,7 @@ const PieChart = ({ data, loading } : Props) => {
 
     if(viewMode === 0) {
         return(
-            <div>
+            <div className={"piechart-container"}>
                 <div style={{'width' : '50%', 'display' : 'inline-block'}}>
                     <CanvasJSChart options={overall}
                     />
@@ -125,7 +127,7 @@ const PieChart = ({ data, loading } : Props) => {
     }
     else {
         return(
-            <div>
+            <div className={"bubblechart-container"}>
                 <Button onClick={() => handleClickGoBack()}>go back</Button>
                 <BubbleChart
                     data={detailData}
