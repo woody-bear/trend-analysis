@@ -6,6 +6,7 @@ import DataTable from '../DataTable';
 import {Spinner, Button} from "reactstrap";
 import './PieChart.scss';
 import BubbleChart from "../BubbleChart";
+import {useInfoState} from "../../contexts/searchInfoContext";
 
 interface Props {
     data : dataObj | null;
@@ -19,6 +20,7 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const PieChart = ({ data, loading } : Props) => {
     const [viewMode, setViewMode] = useState(0);
     const [detailData, setDetailData] = useState<Array<any>>([]);
+    const infoState = useInfoState();
 
     useEffect(() => {
         CanvasJS.addColorSet("custom",
@@ -30,7 +32,9 @@ const PieChart = ({ data, loading } : Props) => {
                 '#B5EAD7',
                 '#C7CEEA',
             ]);
-    });
+
+        setViewMode(0);
+    }, [infoState]);
     if(!data) return <div>there is no data</div>
 
     const overallData = toPresentableData(data.rows, "overall");
@@ -81,6 +85,11 @@ const PieChart = ({ data, loading } : Props) => {
         setViewMode(1);
     };
 
+    const handleClickGoBack = () => {
+        setDetailData([]);
+        setViewMode(0);
+    };
+
     if(loading) {
         return (
             <div className={"spinner-container"}>
@@ -116,12 +125,15 @@ const PieChart = ({ data, loading } : Props) => {
     }
     else {
         return(
-            <BubbleChart
-                data={detailData}
-                height={'100vh'}
-                width={'100vw'}
-                useLabels={true}
-            />
+            <div>
+                <Button onClick={() => handleClickGoBack()}>go back</Button>
+                <BubbleChart
+                    data={detailData}
+                    height={'100vh'}
+                    width={'100vw'}
+                    useLabels={true}
+                />
+            </div>
         )
     }
 };

@@ -82,7 +82,7 @@ export const toDetailData = (rows : Array<any>, type : dataType) => {
 
     return rows.map(row => {
         return {
-            v : (row[typeIdx] / allCount) * 500,
+            v : (row[typeIdx] / allCount) * 600,
             label : `${row[0]}`
         }
     })

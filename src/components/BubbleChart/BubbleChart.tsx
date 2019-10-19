@@ -124,7 +124,7 @@ class BubbleChart extends React.Component<Props, State> {
             .scaleLinear()
             .domain([minValue, maxValue])
             .interpolate(d3.interpolateHcl)
-            .range(["#eb001b", "#f79e1b"]);
+            .range(["#f79e1b", "#eb001b"]);
 
         // render circle and text elements inside a group
         const texts = _.map(data, (item : itemObj, index : any) => {
@@ -133,7 +133,7 @@ class BubbleChart extends React.Component<Props, State> {
             return (
                 <g
                     key={index}
-                    transform={`translate(${window.innerWidth / 2 + item.x},${window.innerHeight / 2 + item.y})`}
+                    transform={`translate(${window.innerWidth / 2 + item.x},${window.innerHeight + item.y})`}
                 >
                     <circle
                         r={this.radiusScale(item.v)}
@@ -160,7 +160,7 @@ class BubbleChart extends React.Component<Props, State> {
     render() {
         if (this.state.data.length) {
             return (
-                    <svg width={'100vw'} height={'100vh'}>
+                    <svg width={'100vw'} height={'200vh'} >
                             {this.renderBubbles(this.state.data)}
                     </svg>
             );
