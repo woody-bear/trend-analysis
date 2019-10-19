@@ -4,7 +4,7 @@ import GraphContainer from '../containers/GraphContainer';
 import SideBarContainer from '../containers/SideBarContainer';
 const SearchPage = ({history, location} : RouteComponentProps) => {
     return(
-        <div>
+        <div style={{'position' : 'relative'}}>
             <GraphContainer history={history}/>
             <SideBarContainer history={history} />
         </div>

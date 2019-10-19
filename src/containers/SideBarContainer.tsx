@@ -5,7 +5,7 @@ import SearchForm from "../common/components/SearchForm";
 import * as rx from '../lib/rx/rx';
 import {useLoadingDispatch} from "../contexts/LoadingContext";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem} from "reactstrap";
 
 interface Props {
     history : History
@@ -44,7 +44,6 @@ const SidBarContainer = ({history} : Props) => {
         const info = {
             keyword,
             period,
-            g_recaptcha_response: token,
         };
 
         infoDispatch(info);
@@ -63,7 +62,7 @@ const SidBarContainer = ({history} : Props) => {
 
     return(
         <div className={"p-3 mb-2 bg-light text-dark"}
-            style={{'position' : 'fixed', 'top' : '0', 'width' : '100%'}}
+            style={{'position' : 'absolute', 'top' : '0', 'width' : '100%'}}
         >
             <Navbar color="faded" light>
                 <NavbarBrand className="mr-auto">Search Option</NavbarBrand>

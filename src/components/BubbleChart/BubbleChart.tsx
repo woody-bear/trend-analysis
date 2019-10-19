@@ -72,16 +72,16 @@ class BubbleChart extends React.Component<Props, State> {
         }
     }
 
-    componentWillUnmount() {
-        this.setState({
-            mounted: false,
-        })
-    }
+    // componentWillUnmount() {
+    //     this.setState({
+    //         mounted: false,
+    //     })
+    // }
 
     radiusScale = (value : any) => {
         const fx = d3
             .scaleSqrt()
-            .range([1, 300])
+            .range([1, 250])
             .domain([this.state.minValue, this.state.maxValue]);
 
         return fx(value);

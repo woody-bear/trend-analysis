@@ -4,7 +4,6 @@ import React, {createContext, Dispatch, useContext, useReducer} from "react";
 export type Info = {
     keyword : string;
     period : number;
-    g_recaptcha_response : string;
 };
 
 type InfoState = Info;
@@ -28,7 +27,7 @@ const InfoReducer = (state: InfoState, action : Action) : InfoState => {
 };
 
 export function InfoContextProvider({ children }: { children: React.ReactNode }) {
-    const [info, dispatch] = useReducer(InfoReducer, {keyword : '' , period : 0, g_recaptcha_response : ""});
+    const [info, dispatch] = useReducer(InfoReducer, {keyword : '' , period : 0});
 
     return (
         <InfoDispatchContext.Provider value={dispatch}>
