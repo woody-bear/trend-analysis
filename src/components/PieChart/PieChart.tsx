@@ -34,8 +34,29 @@ const PieChart = ({ data, loading } : Props) => {
             ]);
 
         setViewMode(0);
-    }, [infoState]);
-    if(!data) return <div>there is no data</div>
+    }, [infoState, loading]);
+
+    if(loading) {
+        return (
+            <div className={"spinner-wide-container"}>
+                <div className={"spinner-container"}>
+                    <div className={"spinner"}>
+                        <Spinner />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    if(!data) return (
+        <div className={"spinner-wide-container"}>
+            <div className={"spinner-container"}>
+                <div className={"spinner"}>
+                    <h3>there is no data</h3>
+                </div>
+            </div>
+        </div>
+    );
 
     const overallData = toPresentableData(data.rows, "overall");
     const recentData = toPresentableData(data.rows, "recent");
@@ -89,18 +110,6 @@ const PieChart = ({ data, loading } : Props) => {
         setDetailData([]);
         setViewMode(0);
     };
-
-    if(loading) {
-        return (
-            <div className={"spinner-wide-container"}>
-                <div className={"spinner-container"}>
-                    <div className={"spinner"}>
-                        <Spinner />
-                    </div>
-                </div>
-            </div>
-        )
-    }
 
     if(viewMode === 0) {
         return(
