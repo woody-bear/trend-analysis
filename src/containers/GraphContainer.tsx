@@ -52,7 +52,8 @@ const GraphContainer = ({ history } : Props) => {
     useEffect(() => {
         const queryPost = (info : Info) => {
             const fd = new FormData();
-            fd.append('sql', sqlQuery.query1(info.keyword, info.period));
+            if(info.keyword === '') fd.append('sql', sqlQuery.query2(info.period));
+            else fd.append('sql', sqlQuery.query1(info.keyword, info.period));
 
             return ajax.post(`${SEDE_URL}/save/1`, fd)
                 .pipe(map(r => r.response))

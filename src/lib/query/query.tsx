@@ -70,18 +70,18 @@ export const query2 = (period : number) : string => {
     return`
     select 
        num.TagName as Tag,
-       row_number() over (order by rate.Rate desc) as MayRank,
-       row_number() over (order by num.Num desc) as TotalRank,
-       rate.Rate as QuestionsInMay,
-       num.Num as QuestionsTotal
+       rate.Rate as RecentCnt,
+       row_number() over (order by rate.Rate desc) as RecentRank,
+       num.Num as TotalCnt,
+       row_number() over (order by num.Num desc) as TotalRank
     
     from
         (select count(PostId) as Rate, TagName
         from Tags, PostTags, Posts
         where Tags.Id = PostTags.TagId 
             and Posts.Id = PostId
-            and Posts.CreationDate < DATEADD(month , -${period}, GETDATE())
-            and Posts.CreationDate > GETDATE()
+            and CreationDate < DATEADD(month , -${period}, GETDATE())
+            and CreationDate > GETDATE()
         group by TagName
         ) as rate
         
@@ -90,10 +90,14 @@ export const query2 = (period : number) : string => {
         (select count(PostId) as Num, TagName
         from
           Tags, PostTags, Posts
-        where Tags.Id = PostTags.TagId and Posts.Id = PostId
+        where Tags.Id = PostTags.TagId
+            and Posts.Id = PostId
+            and CreationDate > DATEADD(year , -4, GETDATE())
+            and CreationDate < DATEADD(year , -1, GETDATE())
         group by TagName
-        having count(PostId) > 3000
+        having count(PostId) > 50000
         ) as num 
+        
         ON rate.TagName = num.TagName
     
     order by rate.rate desc
