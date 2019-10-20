@@ -18,7 +18,7 @@ const SearchInfoContainer = ({history} : Props) => {
     const infoDispatch = useInfoDispatch();
     const loadingDispatch = useLoadingDispatch();
 
-    const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
+    const handleChangeInput = (e : ChangeEvent<HTMLSelectElement>) => {
         setKeyword(e.target.value);
     };
 

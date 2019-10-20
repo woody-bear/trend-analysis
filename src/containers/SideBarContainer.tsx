@@ -32,7 +32,7 @@ const SidBarContainer = ({history} : Props) => {
         initialize();
     }, [executeRecaptcha]);
 
-    const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
+    const handleChangeInput = (e : ChangeEvent<HTMLSelectElement>) => {
         setKeyword(e.target.value);
     };
 
