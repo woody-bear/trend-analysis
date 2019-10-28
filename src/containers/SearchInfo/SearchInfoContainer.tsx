@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {History} from "history";
-import {useInfoDispatch, useInfoState} from "../../contexts/searchInfoContext";
+import {useInfoDispatch} from "../../contexts/searchInfoContext";
 import SearchForm from "../../common/components/SearchForm";
 import Guide from "../../components/Guide";
 import './SearchInfoContainer.scss';

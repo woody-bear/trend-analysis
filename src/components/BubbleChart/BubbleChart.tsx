@@ -128,7 +128,6 @@ class BubbleChart extends React.Component<Props, State> {
 
         // render circle and text elements inside a group
         const texts = _.map(data, (item : itemObj, index : any) => {
-            const props = this.props;
             const fontSize = this.radiusScale(item.v) / 2.5;
             return (
                 <g

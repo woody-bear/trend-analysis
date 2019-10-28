@@ -1,10 +1,9 @@
-import React, {ChangeEvent, useState, useEffect} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {History} from "history";
 import {useInfoDispatch} from "../contexts/searchInfoContext";
 import SearchForm from "../common/components/SearchForm";
 import * as rx from '../lib/rx/rx';
 import {useLoadingDispatch} from "../contexts/LoadingContext";
-import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem} from "reactstrap";
 
 interface Props {
@@ -14,23 +13,10 @@ interface Props {
 const SidBarContainer = ({history} : Props) => {
     const [keyword, setKeyword] = useState('');
     const [period, setPeriod] = useState(3);
-    const [token, setToken] = useState("");
     const [collapsed, setCollapsed] = useState(true);
 
     const infoDispatch = useInfoDispatch();
     const loadingDispatch = useLoadingDispatch();
-
-    const { executeRecaptcha } = useGoogleReCaptcha();
-
-
-    useEffect(() => {
-        const initialize = async () => {
-            if(!executeRecaptcha) return;
-            setToken(await executeRecaptcha("search"));
-        };
-
-        initialize();
-    }, [executeRecaptcha]);
 
     const handleChangeInput = (e : ChangeEvent<HTMLSelectElement>) => {
         setKeyword(e.target.value);
